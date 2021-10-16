@@ -67,8 +67,7 @@ server: $(OBJ_SRV)
 	@$(ECHO) "$(NO_COL)"
 
 test: $(NAME)
-	./$(CLIENT)
-	./$(SERVER)
+	./$(SERVER) | xargs ./$(CLIENT)
 	@$(MAKE) fclean
 	
 sani: $(OBJ)
