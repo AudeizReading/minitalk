@@ -8,4 +8,7 @@
 # include <stdio.h>
 int		ft_atoi(const char *nptr);
 size_t	ft_strlen(char *str);
+void	ft_putchar(char c);
+void	ft_putstr(char *s);
+void	ft_putnbr(int n);
 #endif

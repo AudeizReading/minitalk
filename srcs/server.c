@@ -10,16 +10,11 @@ void receive_sig_char(int signal)
 	// mais comment recup le pid du client ?
 	if (i > 7)
 	{
-		write(1, &c, sizeof(c));
+		ft_putchar(c);
 		c = 0;
 		i = 0;
 	}
 //	usleep(250);
-	//if (signal == SIGUSR1 || signal == SIGUSR2)
-//	{
-		//kill(-1, SIGUSR1);
-	//	usleep(100);
-//	}
 }
 
 int	main(void)
@@ -29,7 +24,9 @@ int	main(void)
 	pid = getpid();
 	signal(SIGUSR1, receive_sig_char);
 	signal(SIGUSR2, receive_sig_char);
-	printf("pid: %d\n", pid);
+	ft_putstr("pid: ");
+	ft_putnbr(pid);
+	ft_putchar('\n');
 	while (1)
 		pause();
 	return (0);
