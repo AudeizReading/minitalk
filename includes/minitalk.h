@@ -6,6 +6,6 @@
 # include <stdlib.h>
 
 # include <stdio.h>
-//char	*str;
-volatile char *str;
+int		ft_atoi(const char *nptr);
+size_t	ft_strlen(char *str);
 #endif

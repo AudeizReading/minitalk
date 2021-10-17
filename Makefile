@@ -35,10 +35,12 @@ LDFLAGS=
 # -----------------------------------------------------------------------------
 SRCS_CLT=$(addprefix srcs/, $(addsuffix .c, \
 	 client\
+	 utils\
 	 ))
 OBJ_CLT=$(SRCS_CLT:.c=.o)
 SRCS_SRV= $(addprefix srcs/, $(addsuffix .c, \
 	 server\
+	 utils\
 	 ))
 OBJ_SRV=$(SRCS_SRV:.c=.o)
 NAME=minitalk

@@ -1,17 +1,5 @@
 #include "../includes/minitalk.h"
 
-size_t	ft_strlen(char *str)
-{
-	size_t	len;
-
-	len = 0;
-	if (!str)
-		return (0);
-	while (str[len])
-		len++;
-	return (len);
-}
-
 void	send_sig_char(unsigned char *str, int pid)
 {
 	unsigned long	i;
@@ -26,18 +14,26 @@ void	send_sig_char(unsigned char *str, int pid)
 			else
 				kill(pid, SIGUSR1);
 			i++;
-			usleep(300);
+			usleep(500);
 		}
 		str++;
 	}
 }
 
+void	receive_ack(int signal)
+{
+	if (signal == SIGUSR1)
+		printf("Ack receipt\n");
+	pause();
+}
+
 int	main(int argc, char **argv)
 {
-	char	*test = "😎";
 	if (argc > 1 && argc < 4)
 	{
-		send_sig_char((unsigned char *)argv[2], atoi(argv[1]));
+		send_sig_char((unsigned char *)argv[2], ft_atoi(argv[1]));
+		signal(SIGUSR1, receive_ack);
+		//usleep(500);
 		return (0);
 	}
 	return (EXIT_FAILURE);

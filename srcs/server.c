@@ -6,6 +6,8 @@ void receive_sig_char(int signal)
 	static unsigned char	c = 0;
 
 	c |= (signal - 30) << i++;
+	// Il faudra envoyer par ici l'ack au client
+	// mais comment recup le pid du client ?
 	if (i > 7)
 	{
 		write(1, &c, sizeof(c));
@@ -13,6 +15,11 @@ void receive_sig_char(int signal)
 		i = 0;
 	}
 //	usleep(250);
+	//if (signal == SIGUSR1 || signal == SIGUSR2)
+//	{
+		//kill(-1, SIGUSR1);
+	//	usleep(100);
+//	}
 }
 
 int	main(void)
