@@ -29,7 +29,7 @@ void	send_sig_char(unsigned char *str, int pid)
 		str++;
 	}
 //	printf("i = %lu\n", i);
-	send_sig_null_char(pid);
+//	send_sig_null_char(pid);
 }
 
 void	receive_ack(int signal)

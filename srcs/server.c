@@ -3,6 +3,7 @@
 void receive_sig_char(int signal, siginfo_t *info, void *context)
 {
 	(void)context;
+	(void)info;
 	static int i = 0;
 	static unsigned char	c = 0;
 
@@ -14,7 +15,7 @@ void receive_sig_char(int signal, siginfo_t *info, void *context)
 		i = 0;
 	}
 //	usleep(250);
-	kill(info->si_pid, SIGUSR1);
+//	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
