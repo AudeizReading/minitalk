@@ -14,26 +14,36 @@ void	send_sig_char(unsigned char *str, int pid)
 			else
 				kill(pid, SIGUSR1);
 			i++;
-			usleep(500);
+			usleep(1050);
 		}
 		str++;
 	}
+	printf("i = %lu\n", i);
+	while (--i != 0)
+		kill(pid, SIGUSR1);
 }
 
 void	receive_ack(int signal)
 {
-	if (signal == SIGUSR1)
+	static int i = 0;
+
+	i++;
+	if (signal == SIGUSR1/* && i == nbc*/)
 		ft_putstr("Ack receipt\n");
-	pause();
 }
 
 int	main(int argc, char **argv)
 {
+	struct sigaction	sa;
+
+	sa.sa_handler = receive_ack;
+	sigaction(SIGUSR1, &sa, NULL);
+	ft_putstr("client pid: ");
+	ft_putnbr(pid);
+	ft_putchar('\n');
 	if (argc > 1 && argc < 4)
 	{
 		send_sig_char((unsigned char *)argv[2], ft_atoi(argv[1]));
-		//signal(SIGUSR1, receive_ack);
-		//usleep(500);
 		return (0);
 	}
 	return (EXIT_FAILURE);
