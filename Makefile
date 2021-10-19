@@ -28,7 +28,6 @@ MAKE=make
 CFLAGS=-Wall -Werror -Wextra
 CHEADERS= -I ./includes
 ALL_FLAGS= $(CHEADERS) $(CFLAGS)
-LDFLAGS=
 
 # -----------------------------------------------------------------------------
 #                                  FILES
@@ -43,9 +42,6 @@ SRCS_SRV= $(addprefix srcs/, $(addsuffix .c, \
 	 utils\
 	 ))
 OBJ_SRV=$(SRCS_SRV:.c=.o)
-NAME=minitalk
-CLIENT=client
-SERVER=server
 
 SRCS_BONUS_CLT=$(addprefix srcs/, $(addsuffix _bonus.c, \
 	 client\
@@ -57,13 +53,13 @@ SRCS_BONUS_SRV= $(addprefix srcs/, $(addsuffix _bonus.c, \
 	 utils\
 	 ))
 OBJ_BONUS_SRV=$(SRCS_BONUS_SRV:.c=.o)
-#NAME=minitalk
-#CLIENT=client
-#SERVER=server
+
+NAME=minitalk
+
 # -----------------------------------------------------------------------------
 #                            RULES
 # -----------------------------------------------------------------------------
-.PHONY: all clean fclean re test debug debug-full sani $(NAME) bonus clean_bonus 
+.PHONY: all clean fclean re $(NAME) bonus clean_bonus 
 
 all: $(NAME)
 
@@ -109,11 +105,6 @@ clean_bonus:
 fclean: clean clean_bonus
 	@$(ECHO) "$(RED)"
 	$(RM) $(SERVER) $(CLIENT)
-	@$(ECHO) "$(NO_COL)"
-
-fclean-debug: fclean
-	@$(ECHO) "$(RED)"
-	$(RM) $(NAME).dSYM
 	@$(ECHO) "$(NO_COL)"
 
 re: fclean all
