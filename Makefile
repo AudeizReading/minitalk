@@ -47,16 +47,29 @@ NAME=minitalk
 CLIENT=client
 SERVER=server
 
+SRCS_BONUS_CLT=$(addprefix srcs/, $(addsuffix _bonus.c, \
+	 client\
+	 utils\
+	 ))
+OBJ_BONUS_CLT=$(SRCS_BONUS_CLT:.c=.o)
+SRCS_BONUS_SRV= $(addprefix srcs/, $(addsuffix _bonus.c, \
+	 server\
+	 utils\
+	 ))
+OBJ_BONUS_SRV=$(SRCS_BONUS_SRV:.c=.o)
+#NAME=minitalk
+#CLIENT=client
+#SERVER=server
 # -----------------------------------------------------------------------------
 #                            RULES
 # -----------------------------------------------------------------------------
-.PHONY: all clean fclean re server client test debug debug-full sani 
+.PHONY: all clean fclean re test debug debug-full sani $(NAME) bonus clean_bonus 
 
 all: $(NAME)
 
 $(NAME): server client
 
-bonus: $(NAME)
+bonus: server_bonus client_bonus
 
 client: $(OBJ_CLT)
 	@$(ECHO) "$(GRE)"
@@ -68,30 +81,15 @@ server: $(OBJ_SRV)
 	$(CC) $(LDFLAGS) $^ -o $@
 	@$(ECHO) "$(NO_COL)"
 
-test: $(NAME)
-	./$(SERVER) | xargs ./$(CLIENT)
-	@$(MAKE) fclean
-	
-sani: $(OBJ)
+client_bonus: $(OBJ_BONUS_CLT)
 	@$(ECHO) "$(GRE)"
-	$(CC) -g -fsanitize=address -fno-omit-frame-pointer -static-libsan $(LDFLAGS) $^ -o $(NAME) 
+	$(CC) $(LDFLAGS) $^ -o $@
 	@$(ECHO) "$(NO_COL)"
-	./$(NAME)
-	@$(MAKE) fclean-debug
 
-debug: $(OBJ)
-	@$(ECHO) "$(BLU)"
-	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
+server_bonus: $(OBJ_BONUS_SRV)
+	@$(ECHO) "$(GRE)"
+	$(CC) $(LDFLAGS) $^ -o $@
 	@$(ECHO) "$(NO_COL)"
-	valgrind ./$(NAME)
-	@$(MAKE) fclean-debug
-
-debug-full: $(OBJ)
-	@$(ECHO) "$(BLU)"
-	$(CC) -g $(LDFLAGS) $^ -o $(NAME)
-	@$(ECHO) "$(NO_COL)"
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
-	@$(MAKE) fclean-debug
 
 %.o: %.c
 	@$(ECHO) "$(GRE)"
@@ -103,7 +101,12 @@ clean:
 	$(RM) $(OBJ_CLT) $(OBJ_SRV)
 	@$(ECHO) "$(NO_COL)"
 
-fclean: clean
+clean_bonus:
+	@$(ECHO) "$(RED)"
+	$(RM) $(OBJ_BONUS_CLT) $(OBJ_BONUS_SRV)
+	@$(ECHO) "$(NO_COL)"
+
+fclean: clean clean_bonus
 	@$(ECHO) "$(RED)"
 	$(RM) $(SERVER) $(CLIENT)
 	@$(ECHO) "$(NO_COL)"
