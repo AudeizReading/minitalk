@@ -55,6 +55,8 @@ SRCS_BONUS_SRV= $(addprefix srcs/, $(addsuffix _bonus.c, \
 OBJ_BONUS_SRV=$(SRCS_BONUS_SRV:.c=.o)
 
 NAME=minitalk
+CLIENT=client
+SERVER=server
 
 # -----------------------------------------------------------------------------
 #                            RULES
@@ -79,12 +81,12 @@ server: $(OBJ_SRV)
 
 client_bonus: $(OBJ_BONUS_CLT)
 	@$(ECHO) "$(GRE)"
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $(LDFLAGS) $^ -o $(CLIENT)
 	@$(ECHO) "$(NO_COL)"
 
 server_bonus: $(OBJ_BONUS_SRV)
 	@$(ECHO) "$(GRE)"
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $(LDFLAGS) $^ -o $(SERVER)
 	@$(ECHO) "$(NO_COL)"
 
 %.o: %.c

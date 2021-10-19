@@ -14,12 +14,10 @@ void	ft_putstr(char *s);
 void	ft_putnbr(int n);
 
 /* server.c */
-void	ft_receive_sig_char(int signal, siginfo_t *info, void *context);
+void	ft_receive_sig_char(int signal);
 void	ft_show_pid(void);
 void	ft_listen_clt_sig(void);
 
 /* client.c */
 void	ft_send_sig_str(unsigned char *str, int pid);
-void	ft_receive_ack(int signal);
-void	ft_wait_server_ack(void);
 #endif
