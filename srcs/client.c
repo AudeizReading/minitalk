@@ -1,4 +1,6 @@
 #include "../includes/minitalk.h"
+#include <string.h>
+#include <sys/errno.h>
 
 void	send_sig_str(unsigned char *str, int pid)
 {

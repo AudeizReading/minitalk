@@ -1,4 +1,6 @@
 #include "../includes/minitalk.h"
+#include <string.h>
+#include <sys/errno.h>
 
 void receive_sig_char(int signal, siginfo_t *info, void *context)
 {
