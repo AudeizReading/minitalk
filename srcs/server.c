@@ -1,9 +1,7 @@
 #include "../includes/minitalk.h"
 
-//void	ft_receive_sig_char(int signal, siginfo_t *info, void *context)
 void	ft_receive_sig_char(int signal)
 {
-//	(void)context;
 	static int				i = 0;
 	static unsigned char	c = 0;
 
@@ -14,7 +12,6 @@ void	ft_receive_sig_char(int signal)
 		c = 0;
 		i = 0;
 	}
-//	kill(info->si_pid, SIGUSR1);
 }
 
 void	ft_show_pid(void)
@@ -31,7 +28,6 @@ void	ft_listen_clt_sig(void)
 {
 	struct sigaction	sa;
 
-	//sa.sa_sigaction = ft_receive_sig_char;
 	sa.sa_handler = ft_receive_sig_char;
 	sa.sa_flags = SA_SIGINFO | SA_NODEFER;
 	sigemptyset(&(sa.sa_mask));

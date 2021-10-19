@@ -5,7 +5,6 @@
 # include <sys/types.h>
 # include <stdlib.h>
 
-# include <stdio.h>
 /* utils.c */
 int		ft_atoi(const char *nptr);
 size_t	ft_strlen(char *str);

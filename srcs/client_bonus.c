@@ -1,4 +1,4 @@
-#include "../includes/minitalk.h"
+#include "../includes/minitalk_bonus.h"
 
 void	ft_send_sig_str(unsigned char *str, int pid)
 {
