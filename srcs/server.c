@@ -2,7 +2,7 @@
 #include <string.h>
 #include <sys/errno.h>
 
-void receive_sig_char(int signal, siginfo_t *info, void *context)
+void	ft_receive_sig_char(int signal, siginfo_t *info, void *context)
 {
 	(void)context;
 	static int				i = 0;
@@ -32,7 +32,7 @@ void	ft_listen_clt_sig(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_sigaction = receive_sig_char;
+	sa.sa_sigaction = ft_receive_sig_char;
 	sa.sa_flags = SA_SIGINFO | SA_NODEFER;
 	sigemptyset(&(sa.sa_mask));
 	sigaddset(&(sa.sa_mask), SIGUSR1);
