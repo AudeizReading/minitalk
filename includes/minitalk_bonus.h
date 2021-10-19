@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minitalk_bonus.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/19 20:13:12 by alellouc          #+#    #+#             */
+/*   Updated: 2021/10/19 20:29:14 by alellouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINITALK_BONUS_H
 # define MINITALK_BONUS_H
 # include <unistd.h>
@@ -19,6 +31,6 @@ void	ft_listen_clt_sig(void);
 
 /* client_bonus.c */
 void	ft_send_sig_str(unsigned char *str, int pid);
-void	ft_receive_ack(int signal);
+void	ft_receive_ack(int signal, siginfo_t *info, void *ctx);
 void	ft_wait_server_ack(void);
 #endif

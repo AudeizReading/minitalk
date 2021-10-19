@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/19 20:14:00 by alellouc          #+#    #+#             */
+/*   Updated: 2021/10/19 20:35:52 by alellouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minitalk_bonus.h"
 
 void	ft_send_sig_str(unsigned char *str, int pid)
@@ -20,15 +32,19 @@ void	ft_send_sig_str(unsigned char *str, int pid)
 	}
 }
 
-void	ft_receive_ack(int signal)
+void	ft_receive_ack(int signal, siginfo_t *info, void *ctx)
 {
 	static int			i = 0;
 
+	(void)ctx;
 	i++;
 	ft_putstr("\tBit Acknowledgment\n");
 	if (signal == SIGUSR1 && i == 8)
 	{
-		ft_putstr("\033[1;45;38mBytes Acknowledgment\033[0m\n");
+		ft_putstr("\033[1;45;38mBytes Acknowledgment\n");
+		ft_putstr("Received from server who has ");
+		ft_putnbr(info->si_pid);
+		ft_putstr(" for pid\033[0m\n");
 		i = 0;
 	}
 	usleep(100);
@@ -38,8 +54,8 @@ void	ft_wait_server_ack(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = ft_receive_ack;
-	sa.sa_flags = SA_NODEFER;
+	sa.sa_sigaction = ft_receive_ack;
+	sa.sa_flags = SA_SIGINFO | SA_NODEFER;
 	sigemptyset(&(sa.sa_mask));
 	sigaddset(&(sa.sa_mask), SIGUSR1);
 	if (sigaction(SIGUSR1, &sa, NULL))

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/19 20:12:32 by alellouc          #+#    #+#             */
+/*   Updated: 2021/10/19 20:15:15 by alellouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minitalk_bonus.h"
 
 void	ft_receive_sig_char(int signal, siginfo_t *info, void *context)
 {
-	(void)context;
 	static int				i = 0;
 	static unsigned char	c = 0;
 
+	(void)context;
 	c |= (signal - 30) << i++;
 	if (i > 7)
 	{
