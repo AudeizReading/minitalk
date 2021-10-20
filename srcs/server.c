@@ -6,7 +6,7 @@
 /*   By: alellouc <alellouc@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:13:37 by alellouc          #+#    #+#             */
-/*   Updated: 2021/10/19 20:13:39 by alellouc         ###   ########.fr       */
+/*   Updated: 2021/10/20 08:15:53 by alellouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_receive_sig_char(int signal)
 	static int				i = 0;
 	static unsigned char	c = 0;
 
-	c |= (signal - 30) << i++;
+	//c |= (signal - 30) << i++;
+	c |= (signal - SIGUSR1) << i++;
 	if (i > 7)
 	{
 		ft_putchar(c);
